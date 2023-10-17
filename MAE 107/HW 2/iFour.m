@@ -1,0 +1,27 @@
+function iFour()
+
+format longg
+
+% ft --> true value
+% fsb--> small to big approx (1:1:10000)
+% fbs--> big to small approx (10000:-1:1)
+ft = pi^4/90
+fsb = single(0);
+fbs = single(0);
+
+for i = 1:1:10000
+    fsb = fsb + 1/(i^4);
+end
+
+for n = 10000:-1:1
+    fbs = fbs + 1/(n^4);
+end
+
+fsb
+fbs
+
+%Error calculations
+fsbE = abs(ft-fsb)/ft * 100
+fbsE = abs(ft-fbs)/ft * 100
+
+end
