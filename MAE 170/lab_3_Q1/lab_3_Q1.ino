@@ -5,8 +5,7 @@ void setup() {
 Serial.begin(115200);
 }
 // the loop routine runs over and over again forever
-// the loop contains reading the analog in A0 pin and writing the voltage to the
-serial port
+// the loop contains reading the analog in A0 pin and writing the voltage to the serial port
 // followed by the time in microseconds:
 void loop() {
 Serial.print(analogRead(A0));
