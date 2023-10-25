@@ -20,8 +20,7 @@ function [frequencyVar, amplitudeVar] = MAE170fft(tVar, yVar)
     reps=length(tVar); % obtain number of samples
     fs=1/mean(diff(tVar)); % calculate mean sampling rate
     % calculate oscilloscope signal PSD
-    [PSD,f_psd] = periodogram(yVar,...
-    rectwin(reps),reps,fs,'onesided');
+    [PSD,f_psd] = periodogram(yVar,rectwin(reps),reps,fs,'onesided');
     frequencyVar = f_psd;
     amplitudeVar = sqrt(PSD);
 end
