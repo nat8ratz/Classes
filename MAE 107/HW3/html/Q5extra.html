@@ -6,7 +6,7 @@
    <!--
 This HTML was auto-generated from MATLAB code.
 To make changes, update the MATLAB code and republish this document.
-      --><title>bisection</title><meta name="generator" content="MATLAB 9.14"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2023-10-25"><meta name="DC.source" content="bisection.m"><style type="text/css">
+      --><title>Q5extra</title><meta name="generator" content="MATLAB 9.14"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2023-10-25"><meta name="DC.source" content="Q5extra.m"><style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
 
 html { min-height:100%; margin-bottom:1px; }
@@ -67,102 +67,67 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
 
 
 
-  </style></head><body><div class="content"><pre class="codeinput">L = 850
-E = 57000
-I = 23000
-w = 2.5
+  </style></head><body><div class="content"><pre class="codeinput">L1 = 20;
+L2 = 6;
+L3 = 18;
+L4 = 14;
 
-[xmax, ymax, n] = bisection(L,E,I,w)
+p1 = L1/L4;
+p2 = L1/L2;
+p3 = (L1^2+L2^2+L4^2-L3^2)/(2*L2*L4);
 
-<span class="keyword">function</span> [xmax, ymax, n] = bisection(L,E,I,w)
+err = 0.0001;
 
-<span class="comment">% set true value</span>
-xt = L/sqrt(5);
+th4 = 80;
 
-<span class="comment">% initialize (x,y) derivative test points (left, right, middle)</span>
-xl = 0;
-yl = -5*xl^4 + 6*L^2*xl^2 - L^4;
-xr = L;
-yr = -5*xr^4 + 6*L^2*xr^2 - L^4;
-xm = L/2;
-ym = -5*xm^4 + 6*L^2*xm^2 - L^4;
+<span class="keyword">for</span> th2 = 0:10:360
+e = 1;
+n=0;
 
-<span class="comment">% number of iterations</span>
-n = 1;
-
-<span class="keyword">while</span> xm &gt; 1.005*xt || xm &lt; 0.995*xt
-    <span class="keyword">if</span> yl*ym &lt; 0 <span class="comment">% left side of zero</span>
-        xr = xm;
-        yr = ym;
-        xm = xm - (xm-xl)/2; <span class="comment">% subtract 1/2 distance from middle</span>
-    <span class="keyword">elseif</span> ym*yr &lt; 0
-        xl = xm;
-        yl = ym;
-        xm = xm + (xr-xm)/2; <span class="comment">% add half distance from middle</span>
-    <span class="keyword">else</span>
-        <span class="comment">% if there are no zeros on either side</span>
-        disp(<span class="string">'error: no findable zeros via this method!'</span>);
-        <span class="keyword">break</span>
-    <span class="keyword">end</span>
-    ym = -5*xm^4 + 6*L^2*xm^2 - L^4;
-    n = n+1;
+<span class="keyword">while</span> e &gt; err
+    th4g = th4;
+    fx = cosd(th2-th4g) + p1*cosd(th2) - p2*cosd(th4g) - p3;
+    fxp = sind(th2-th4g) + p2*sind(th4);
+    th4 = th4g - fx/fxp;
+    e = abs(th4 - th4g)/th4;
+    n=n+1;
 <span class="keyword">end</span>
-
-xmax = xm;
-ymax = w/(120*E*I*L)*(-xm^5 + 2*L^2*xm^3 - L^4*xm);
-
+plot(th2,th4, <span class="string">'o'</span>);
+hold <span class="string">on</span>
 <span class="keyword">end</span>
-</pre><pre class="codeoutput error">Error using dbstatus
-Error: File: C:\Users\nrrma\OneDrive\Documents\GitHub\Classes\MAE 107\HW3\bisection.m Line: 8 Column: 28
-Local function name must be different from the script name.
-</pre><p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2023a</a><br></p></div><!--
+xlabel(<span class="string">'theta 2'</span>);
+ylabel(<span class="string">'theta 4'</span>);
+</pre><img vspace="5" hspace="5" src="Q5extra_01.png" alt=""> <p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2023a</a><br></p></div><!--
 ##### SOURCE BEGIN #####
-L = 850
-E = 57000
-I = 23000
-w = 2.5
+L1 = 20;
+L2 = 6;
+L3 = 18;
+L4 = 14;
 
-[xmax, ymax, n] = bisection(L,E,I,w)
+p1 = L1/L4;
+p2 = L1/L2;
+p3 = (L1^2+L2^2+L4^2-L3^2)/(2*L2*L4);
 
-function [xmax, ymax, n] = bisection(L,E,I,w)
+err = 0.0001;
 
-% set true value
-xt = L/sqrt(5);
+th4 = 80;
 
-% initialize (x,y) derivative test points (left, right, middle)
-xl = 0;
-yl = -5*xl^4 + 6*L^2*xl^2 - L^4;
-xr = L;
-yr = -5*xr^4 + 6*L^2*xr^2 - L^4;
-xm = L/2;
-ym = -5*xm^4 + 6*L^2*xm^2 - L^4;
+for th2 = 0:10:360
+e = 1;
+n=0;
 
-% number of iterations
-n = 1;
-
-while xm > 1.005*xt || xm < 0.995*xt
-    if yl*ym < 0 % left side of zero
-        xr = xm;
-        yr = ym;
-        xm = xm - (xm-xl)/2; % subtract 1/2 distance from middle
-    elseif ym*yr < 0
-        xl = xm;
-        yl = ym;
-        xm = xm + (xr-xm)/2; % add half distance from middle
-    else
-        % if there are no zeros on either side
-        disp('error: no findable zeros via this method!');
-        break
-    end
-    ym = -5*xm^4 + 6*L^2*xm^2 - L^4;
-    n = n+1;
+while e > err
+    th4g = th4;
+    fx = cosd(th2-th4g) + p1*cosd(th2) - p2*cosd(th4g) - p3;
+    fxp = sind(th2-th4g) + p2*sind(th4);
+    th4 = th4g - fx/fxp;
+    e = abs(th4 - th4g)/th4;
+    n=n+1;
 end
-
-xmax = xm;
-ymax = w/(120*E*I*L)*(-xm^5 + 2*L^2*xm^3 - L^4*xm);
-
+plot(th2,th4, 'o');
+hold on
 end
-
-
+xlabel('theta 2');
+ylabel('theta 4');
 ##### SOURCE END #####
 --></body></html>

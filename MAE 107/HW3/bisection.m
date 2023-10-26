@@ -33,7 +33,6 @@ while xm > 1.005*xt || xm < 0.995*xt
 end
 
 xmax = xm;
-fprintf('ymax:');
 ymax = w/(120*E*I*L)*(-xm^5 + 2*L^2*xm^3 - L^4*xm);
 
 end

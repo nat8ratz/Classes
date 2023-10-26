@@ -1,18 +1,24 @@
-function [xmax, ymax, n] = falsePosition(L,E,I,w,df,xt,f)
+L = 850;
+E = 57000;
+I = 23000;
+w = 2.5;
 
-% set variables
+[xmax, ymax, n] = bisection(L,E,I,w)
+
+function [xmax, ymax, n] = bisection(L,E,I,w)
+
+% set true value
 xt = L/sqrt(5);
 
-% initialize (x,y) test points (left, right)
+% initialize (x,y) derivative test points (left, right, middle)
 xl = 0;
-yl = df(xl,L);
+yl = -5*xl^4 + 6*L^2*xl^2 - L^4;
 xr = L;
-yr = df(xr,L);
-
+yr = -5*xr^4 + 6*L^2*xr^2 - L^4;
 xm = L/2;
-ym = df(xm,L);
+ym = -5*xm^4 + 6*L^2*xm^2 - L^4;
 
-% count for number of iterations
+% number of iterations
 n = 1;
 
 while xm > 1.005*xt || xm < 0.995*xt
@@ -29,13 +35,11 @@ while xm > 1.005*xt || xm < 0.995*xt
         disp('error: no findable zeros via this method!');
         break
     end
-    s = (yr-yl)/(xr-xl);
-    xm = -yr/s + xr;
-    ym = df(xm,L);
+    ym = -5*xm^4 + 6*L^2*xm^2 - L^4;
     n = n+1;
 end
 
 xmax = xm;
-fprintf('ymax:');
-ymax = f(L,E,I,w,xm);
+ymax = w/(120*E*I*L)*(-xm^5 + 2*L^2*xm^3 - L^4*xm);
+
 end

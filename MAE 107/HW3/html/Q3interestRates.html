@@ -6,7 +6,7 @@
    <!--
 This HTML was auto-generated from MATLAB code.
 To make changes, update the MATLAB code and republish this document.
-      --><title>bisection</title><meta name="generator" content="MATLAB 9.14"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2023-10-25"><meta name="DC.source" content="bisection.m"><style type="text/css">
+      --><title>Q3interestRates</title><meta name="generator" content="MATLAB 9.14"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2023-10-25"><meta name="DC.source" content="Q3interestRates.m"><style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
 
 html { min-height:100%; margin-bottom:1px; }
@@ -67,102 +67,128 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
 
 
 
-  </style></head><body><div class="content"><pre class="codeinput">L = 850
-E = 57000
-I = 23000
-w = 2.5
+  </style></head><body><div class="content"><pre class="codeinput">x0 = 0.000000001;
+L = 1;
+f = @apr;
+err = 0.0001;
+[i, count] = falsePosition(x0,L,f,err)
 
-[xmax, ymax, n] = bisection(L,E,I,w)
+APR = 12*i
 
-<span class="keyword">function</span> [xmax, ymax, n] = bisection(L,E,I,w)
+<span class="keyword">function</span> y = apr(i)
+P = 57333;
+A = 8240000;
+n = 360;
+y = A * ((i*(1+i)^n)/((1+i)^n-1)) - P;
+<span class="keyword">end</span>
 
-<span class="comment">% set true value</span>
-xt = L/sqrt(5);
+<span class="keyword">function</span> [xmax, count] = falsePosition(x0,L,f,err)
 
-<span class="comment">% initialize (x,y) derivative test points (left, right, middle)</span>
-xl = 0;
-yl = -5*xl^4 + 6*L^2*xl^2 - L^4;
+<span class="comment">% initialize (x,y) test points (left, right) &amp; approx error (e)</span>
+xl = x0;
 xr = L;
-yr = -5*xr^4 + 6*L^2*xr^2 - L^4;
-xm = L/2;
-ym = -5*xm^4 + 6*L^2*xm^2 - L^4;
+yl = f(xl);
+yr = f(xr);
+e = abs(xl-xr);
 
-<span class="comment">% number of iterations</span>
-n = 1;
+<span class="comment">% first slope iteration and middle point</span>
+s = (yr-yl)/(xr-xl);
+xm = -yr/s + xr;
+ym = f(xm);
 
-<span class="keyword">while</span> xm &gt; 1.005*xt || xm &lt; 0.995*xt
-    <span class="keyword">if</span> yl*ym &lt; 0 <span class="comment">% left side of zero</span>
+<span class="comment">% count for number of iterations</span>
+count = 1;
+
+<span class="keyword">while</span> e &gt; err
+    <span class="keyword">if</span> yl*ym &lt; 0 <span class="comment">% zero on left side of xm</span>
         xr = xm;
         yr = ym;
-        xm = xm - (xm-xl)/2; <span class="comment">% subtract 1/2 distance from middle</span>
-    <span class="keyword">elseif</span> ym*yr &lt; 0
+    <span class="keyword">elseif</span> ym*yr &lt; 0 <span class="comment">% zero on right side of xm</span>
         xl = xm;
         yl = ym;
-        xm = xm + (xr-xm)/2; <span class="comment">% add half distance from middle</span>
-    <span class="keyword">else</span>
-        <span class="comment">% if there are no zeros on either side</span>
+    <span class="keyword">else</span> <span class="comment">% no zeros on either side</span>
         disp(<span class="string">'error: no findable zeros via this method!'</span>);
         <span class="keyword">break</span>
     <span class="keyword">end</span>
-    ym = -5*xm^4 + 6*L^2*xm^2 - L^4;
-    n = n+1;
+    <span class="comment">% update error, count, slope, and middle point values</span>
+    e = abs(xr-xl);
+    s = (yr-yl)/(xr-xl);
+    xm = xl-yl/s;
+    ym = f(xm);
+    count = count+1;
 <span class="keyword">end</span>
 
 xmax = xm;
-ymax = w/(120*E*I*L)*(-xm^5 + 2*L^2*xm^3 - L^4*xm);
-
 <span class="keyword">end</span>
-</pre><pre class="codeoutput error">Error using dbstatus
-Error: File: C:\Users\nrrma\OneDrive\Documents\GitHub\Classes\MAE 107\HW3\bisection.m Line: 8 Column: 28
-Local function name must be different from the script name.
+</pre><pre class="codeoutput">
+i =
+
+    0.0062
+
+
+count =
+
+    21
+
+
+APR =
+
+    0.0745
+
 </pre><p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2023a</a><br></p></div><!--
 ##### SOURCE BEGIN #####
-L = 850
-E = 57000
-I = 23000
-w = 2.5
+x0 = 0.000000001;
+L = 1;
+f = @apr;
+err = 0.0001;
+[i, count] = falsePosition(x0,L,f,err)
 
-[xmax, ymax, n] = bisection(L,E,I,w)
+APR = 12*i
 
-function [xmax, ymax, n] = bisection(L,E,I,w)
+function y = apr(i)
+P = 57333;
+A = 8240000;
+n = 360;
+y = A * ((i*(1+i)^n)/((1+i)^n-1)) - P;
+end
 
-% set true value
-xt = L/sqrt(5);
+function [xmax, count] = falsePosition(x0,L,f,err)
 
-% initialize (x,y) derivative test points (left, right, middle)
-xl = 0;
-yl = -5*xl^4 + 6*L^2*xl^2 - L^4;
+% initialize (x,y) test points (left, right) & approx error (e)
+xl = x0;
 xr = L;
-yr = -5*xr^4 + 6*L^2*xr^2 - L^4;
-xm = L/2;
-ym = -5*xm^4 + 6*L^2*xm^2 - L^4;
+yl = f(xl);
+yr = f(xr);
+e = abs(xl-xr);
 
-% number of iterations
-n = 1;
+% first slope iteration and middle point
+s = (yr-yl)/(xr-xl);
+xm = -yr/s + xr;
+ym = f(xm);
 
-while xm > 1.005*xt || xm < 0.995*xt
-    if yl*ym < 0 % left side of zero
+% count for number of iterations
+count = 1;
+
+while e > err
+    if yl*ym < 0 % zero on left side of xm
         xr = xm;
         yr = ym;
-        xm = xm - (xm-xl)/2; % subtract 1/2 distance from middle
-    elseif ym*yr < 0
+    elseif ym*yr < 0 % zero on right side of xm
         xl = xm;
         yl = ym;
-        xm = xm + (xr-xm)/2; % add half distance from middle
-    else
-        % if there are no zeros on either side
+    else % no zeros on either side
         disp('error: no findable zeros via this method!');
         break
     end
-    ym = -5*xm^4 + 6*L^2*xm^2 - L^4;
-    n = n+1;
+    % update error, count, slope, and middle point values
+    e = abs(xr-xl);
+    s = (yr-yl)/(xr-xl);
+    xm = xl-yl/s;
+    ym = f(xm);
+    count = count+1;
 end
 
 xmax = xm;
-ymax = w/(120*E*I*L)*(-xm^5 + 2*L^2*xm^3 - L^4*xm);
-
 end
-
-
 ##### SOURCE END #####
 --></body></html>

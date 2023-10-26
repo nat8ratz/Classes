@@ -11,4 +11,6 @@ yFit = polyval(coefficients , xFit);
 plot(x, y, 'r.', 'MarkerSize', 15); % Plot training data.
 hold on; % Set hold on so the next plot does not blow away the one we just drew.
 plot(xFit, yFit, 'b-', 'LineWidth', 1); % Plot fitted line.
+xlabel('2*pi*f_v_e_c');
+ylabel('(1/(T_v_e_c)^2 - 1)^1^/^2');
 grid on;

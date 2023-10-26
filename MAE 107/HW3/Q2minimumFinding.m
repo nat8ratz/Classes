@@ -7,7 +7,7 @@ f = @beam;
 df = @dbeam;
 xt = L/sqrt(5);
 err = 0.005;
-[xmax, n] = falsePosition(L,df,xt,err);
+[xmax, n] = falsePositionKnown(L,df,xt,err);
 xmax
 ymax = beam(L,E,I,w,xmax)
 n
@@ -31,11 +31,9 @@ while xm > (1+err)*xt || xm < (1-err)*xt
     if yl*ym < 0 % left side of zero
         xr = xm;
         yr = ym;
-        xm = xm - (xm-xl)/2; % subtract 1/2 distance from middle
     elseif ym*yr < 0
         xl = xm;
         yl = ym;
-        xm = xm + (xr-xm)/2; % add half distance from middle
     else
         % if there are no zeros on either side
         disp('error: no findable zeros via this method!');
@@ -50,7 +48,7 @@ xmax = xm;
 end
 
 function y = beam(L,E,I,w,x)
-y = (w/(120*E*I*L))*(-x^5+2*L^2*x^3+L^4*x);
+y = w/(120*E*I*L)*(-x^5 + 2*L^2*x^3 - L^4*x);
 end
 
 function y = dbeam(x,L)

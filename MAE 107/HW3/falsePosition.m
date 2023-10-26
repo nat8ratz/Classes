@@ -1,39 +1,38 @@
-function [xmax, n] = falsePosition(L,f,err)
+function [xmax, count] = falsePosition(x0,L,f,err)
 
 % initialize (x,y) test points (left, right)
-xl = 0;
-yl = f(xl,L);
+xl = x0;
 xr = L;
-yr = f(xr,L);
-e = L;
+yl = f(xl)
+yr = f(xr)
+e = xl-xr;
 
 s = (yr-yl)/(xr-xl);
 xm = -yr/s + xr;
-ym = f(xm,L);
+ym = f(xm);
 
 % count for number of iterations
-n = 1;
+count = 1;
 
 while e > err
     if yl*ym < 0 % left side of zero
-        e = yl-ym;
         xr = xm;
         yr = ym;
-        xm = xm - (xm-xl)/2; % subtract 1/2 distance from middle
+        disp('left');
     elseif ym*yr < 0
-        e = ym-yr;
         xl = xm;
         yl = ym;
-        xm = xm + (xr-xm)/2; % add half distance from middle
+        disp('right');
     else
         % if there are no zeros on either side
         disp('error: no findable zeros via this method!');
         break
     end
+    e = abs(xr-xl);
     s = (yr-yl)/(xr-xl);
-    xm = -yr/s + xr;
-    ym = f(xm,L);
-    n = n+1;
+    xm = xl-yl/s;
+    ym = f(xm)
+    count = count+1;
 end
 
 xmax = xm;
