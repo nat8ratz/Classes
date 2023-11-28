@@ -1,0 +1,53 @@
+% Aluminum
+%p = 2707; c = 879; k = 204;
+
+% Acrylic
+p = 1180; c = 2000; k = 0.2;
+
+% initialize measurements in meters
+d = 0.00081;
+A = 2*(0.0381^2)+4*(0.0381*0.00081);
+V = 0.00081*0.0381^2;
+L = V/A;
+
+% temp and time values from data
+T = tempPlateC;
+T0 = max(T);
+Tamb = tempAmbC;
+t = time;
+
+% lin = ln(theta)
+theta = (T - Tamb)./(T0 - Tamb);
+lin = log(abs(theta));
+tau = (k*A)/(p*c*d*V)*t;
+
+% find peak of linearized data (where to start line of best fit)
+[height, loc] = max(lin);
+loc = loc+5;
+tauLin = tau(loc:length(lin)); % tau in linearized section
+thLin = lin(loc:length(lin)); % theta in linearized section
+
+% create line of best fit and find slope (aka Bi)
+pf = polyfit(tauLin,thLin,1);
+Bi = -pf(1)
+b = pf(2);
+
+% alternate method: Bi = -ln(theta)/tau
+Bit = -log(theta(loc:length(theta)))/tau(loc:length(tau))
+
+% plot data and line of best fit
+plot(tau,lin,'o-')
+hold on
+xlabel('tau');
+ylabel('ln(theta)');
+fitline = -Bi*(tauLin)+b;
+plot(tauLin, fitline,'r-', LineWidth=2)
+
+txt = sprintf('y = %.4f * x + %.4f', Bi, b);
+text(32, 0, txt);
+
+% calculate h (W/m^2*K)
+h(1) = k*Bi/L
+
+%save data from each trial
+B(3) = Bi

@@ -1,0 +1,16 @@
+%% MAE107 HW6 Problem 3 Starter Script
+clc
+clear
+close all
+
+% Import data_test.txt into script; make sure the txt file is located in
+% Matlab's current directory or in added path
+data = readmatrix('data_test.txt');
+x = data(:,1);
+y = data(:,2);
+
+% Your code:
+plot(x,y,'o');
+
+n = length(data)
+a1 = (n*sum())
