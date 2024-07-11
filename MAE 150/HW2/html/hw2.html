@@ -1,0 +1,355 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      -->
+<title>hw2</title>
+<meta name="generator" content="MATLAB 23.2">
+<link rel="schema.DC" href="http://purl.org/dc/elements/1.1/">
+<meta name="DC.date" content="2024-04-19">
+<meta name="DC.source" content="hw2.m">
+<style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; }
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+span.typesection { color:#A0522D }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style>
+</head>
+<body>
+<div class="content">
+<pre class="codeinput">clear <span class="string">all</span>;
+close <span class="string">all</span>;
+clc;
+format <span class="string">long</span>;
+
+name = <span class="string">'Natalie Ratzlaff'</span>;
+id = <span class="string">'A17091327'</span>;
+hw_num = 2;
+
+a = 77;
+b = 30;
+c = 25;
+g = 2;
+da = 0.5;
+db = 0.1;
+dc = 0.1;
+dg = 0.8;
+
+p1a = a - b - c - g
+p1b = dg + da + db + dc
+p1c = sqrt(dg^2 + da^2 + db^2 + dc^2)
+
+bmax = b + 0.5;
+bmin = b - 0.3;
+
+p2a = (bmax + bmin + b)/3
+p2b = b
+p2c = bmin + sqrt(0.5*(b-bmin)*(bmax-bmin))
+p2d = (30 - bmin)/(bmax-bmin)
+p2e = bmin + 0.9*(bmax-bmin)
+
+L = 135;
+p = 1.19;
+v = 33.4;
+S = 4;
+dL = 0.5/L;
+dp = 0.001/p;
+dv = 0.5/v;
+dS = 0.03/S;
+
+p3a = Cl(L,p,v,S)
+p3b = p3a*(dL + dp + 2*dv + dS)
+p3c = p3a*sqrt(dL^2 + dp^2 + 2*dv^2 + dS^2)
+
+rng(<span class="string">'default'</span>);
+mcL = makedist(<span class="string">'Uniform'</span>,<span class="string">'Lower'</span>,134.5,<span class="string">'Upper'</span>,135.5);
+gL = random(mcL,1,25000);
+mcp = makedist(<span class="string">'Triangular'</span>,<span class="string">'A'</span>,1.189,<span class="string">'B'</span>,1.19,<span class="string">'C'</span>,1.191);
+gp = random(mcp,1,25000);
+mcv = makedist(<span class="string">'Triangular'</span>,<span class="string">'A'</span>,32.9,<span class="string">'B'</span>,33.4,<span class="string">'C'</span>,33.9);
+gv = random(mcv,1,25000);
+mcS = makedist(<span class="string">'Normal'</span>,<span class="string">'mu'</span>,4,<span class="string">'sigma'</span>,0.03);
+gS = random(mcS,1,25000);
+gC = Cl(gL,gp,gv,gS);
+
+figure(1);
+subplot(2,3,1);
+histogram(gL);
+xlabel(<span class="string">'Lift (N)'</span>);
+ylabel(<span class="string">'number of points'</span>);
+title(<span class="string">'Lift Histogram'</span>);
+subplot(2,3,2);
+histogram(gp);
+xlabel(<span class="string">'Fluid Density (kgm^-^3)'</span>);
+ylabel(<span class="string">'number of points'</span>);
+title(<span class="string">'Fluid Density Histogram'</span>);
+subplot(2,3,3);
+histogram(gv);
+xlabel(<span class="string">'Airspeed (ms^-^1)'</span>);
+ylabel(<span class="string">'number of points'</span>);
+title(<span class="string">'Airspeed Histogram'</span>);
+subplot(2,3,4);
+histogram(gS);
+xlabel(<span class="string">'Air Foil Area (m^2)'</span>);
+ylabel(<span class="string">'number of points'</span>);
+title(<span class="string">'Air Foil Area Histogram'</span>);
+subplot(2,3,5);
+histogram(gC);
+xlabel(<span class="string">'Lift Coefficient C_L'</span>);
+ylabel(<span class="string">'number of points'</span>);
+title(<span class="string">'Lift Coefficient Histogram'</span>);
+
+p3d = <span class="string">'See figure 1'</span>
+
+ef = mle(gC);
+p3e = ef(1)
+p3f = ef(2)
+
+distCl = makedist(<span class="string">'normal'</span>,<span class="string">'mu'</span>,ef(1),<span class="string">'sigma'</span>,ef(2));
+p3g = cdf(distCl, 0.05)
+
+<span class="keyword">function</span> C = Cl(L,p,v,S)
+    C = L./(0.5.*p.*v.^2.*S);
+<span class="keyword">end</span>
+</pre>
+<pre class="codeoutput">
+p1a =
+
+    20
+
+
+p1b =
+
+   1.500000000000000
+
+
+p1c =
+
+   0.953939201416946
+
+
+p2a =
+
+  30.066666666666666
+
+
+p2b =
+
+    30
+
+
+p2c =
+
+  30.046410161513776
+
+
+p2d =
+
+   0.375000000000001
+
+
+p2e =
+
+  30.420000000000002
+
+
+p3a =
+
+   0.050846829462898
+
+
+p3b =
+
+   0.002134761403255
+
+
+p3c =
+
+   0.001158235609706
+
+
+p3d =
+
+    'See figure 1'
+
+
+p3e =
+
+   0.050854244455985
+
+
+p3f =
+
+     7.399736076178225e-04
+
+
+p3g =
+
+   0.124162867887166
+
+</pre>
+<img vspace="5" hspace="5" src="hw2_01.png" alt=""> <p class="footer">
+<br>
+<a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2023b</a>
+<br>
+</p>
+</div>
+<!--
+##### SOURCE BEGIN #####
+clear all;
+close all;
+clc;
+format long;
+
+name = 'Natalie Ratzlaff';
+id = 'A17091327';
+hw_num = 2;
+
+a = 77;
+b = 30;
+c = 25;
+g = 2;
+da = 0.5;
+db = 0.1;
+dc = 0.1;
+dg = 0.8;
+
+p1a = a - b - c - g
+p1b = dg + da + db + dc
+p1c = sqrt(dg^2 + da^2 + db^2 + dc^2)
+
+bmax = b + 0.5;
+bmin = b - 0.3;
+
+p2a = (bmax + bmin + b)/3
+p2b = b
+p2c = bmin + sqrt(0.5*(b-bmin)*(bmax-bmin))
+p2d = (30 - bmin)/(bmax-bmin)
+p2e = bmin + 0.9*(bmax-bmin)
+
+L = 135;
+p = 1.19;
+v = 33.4;
+S = 4;
+dL = 0.5/L;
+dp = 0.001/p;
+dv = 0.5/v;
+dS = 0.03/S;
+
+p3a = Cl(L,p,v,S)
+p3b = p3a*(dL + dp + 2*dv + dS)
+p3c = p3a*sqrt(dL^2 + dp^2 + 2*dv^2 + dS^2)
+
+rng('default');
+mcL = makedist('Uniform','Lower',134.5,'Upper',135.5);
+gL = random(mcL,1,25000);
+mcp = makedist('Triangular','A',1.189,'B',1.19,'C',1.191);
+gp = random(mcp,1,25000);
+mcv = makedist('Triangular','A',32.9,'B',33.4,'C',33.9);
+gv = random(mcv,1,25000);
+mcS = makedist('Normal','mu',4,'sigma',0.03);
+gS = random(mcS,1,25000);
+gC = Cl(gL,gp,gv,gS);
+
+figure(1);
+subplot(2,3,1);
+histogram(gL);
+xlabel('Lift (N)');
+ylabel('number of points');
+title('Lift Histogram');
+subplot(2,3,2);
+histogram(gp);
+xlabel('Fluid Density (kgm^-^3)');
+ylabel('number of points');
+title('Fluid Density Histogram');
+subplot(2,3,3);
+histogram(gv);
+xlabel('Airspeed (ms^-^1)');
+ylabel('number of points');
+title('Airspeed Histogram');
+subplot(2,3,4);
+histogram(gS);
+xlabel('Air Foil Area (m^2)');
+ylabel('number of points');
+title('Air Foil Area Histogram');
+subplot(2,3,5);
+histogram(gC);
+xlabel('Lift Coefficient C_L');
+ylabel('number of points');
+title('Lift Coefficient Histogram');
+
+p3d = 'See figure 1'
+
+ef = mle(gC);
+p3e = ef(1)
+p3f = ef(2)
+
+distCl = makedist('normal','mu',ef(1),'sigma',ef(2));
+p3g = cdf(distCl, 0.05)
+
+function C = Cl(L,p,v,S)
+    C = L./(0.5.*p.*v.^2.*S);
+end
+##### SOURCE END #####
+-->
+</body>
+</html>

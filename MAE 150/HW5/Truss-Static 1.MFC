@@ -1,0 +1,16 @@
+[StartTime]
+Truss-Static 1.MFC=
+[SolverState]
+Truss-Static 1.MFC=2
+[MainFrame]
+Truss-Static 1.MFC=MCAAAAAAAAAAAAAABAAAAAAAPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPMMBAAAAAHCBAAAAAEDDAAAAAKPBAAAAA
+[ShowMin]
+Truss-Static 1.MFC=No
+[SolverType]
+Truss-Static 1.MFC=Linear Analysis
+[StudyType]
+Truss-Static 1.MFC=0
+[StudyName]
+Truss-Static 1.MFC=Static 1
+[Solver]
+Truss-Static 1.MFC=Sparse
