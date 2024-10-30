@@ -1,0 +1,11 @@
+% Question 3
+
+% Part a
+sg = [32; -2; -5];
+Ts = Tsigma(20);
+slocal = Ts * sg;
+
+% Part b
+
+sl = [2280; 0; 0];
+sglobal = inv(Ts) * sl

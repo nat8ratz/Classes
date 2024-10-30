@@ -1,0 +1,15 @@
+function Qbar = Qbar(t,E1,E2,G12,v12)
+
+Te = [cosd(t)^2 sind(t)^2 sind(t)*cosd(t);
+      sind(t)^2 cosd(t)^2 -sind(t)*cosd(t);
+      -2*cosd(t)*sind(t) 2*cosd(t)*sind(t) cosd(t)^2-sind(t)^2];
+
+v21 = E2*v12/E1;
+
+S = [1/E1 -v21/E2 0;
+     -v12/E1 1/E2 0;
+      0 0 1/G12];
+
+Q = inv(S);
+
+Qbar = Pa*Q*Te;

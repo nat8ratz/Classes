@@ -1,0 +1,46 @@
+% local stress to global stress
+function globalStress = sL2sG(slocal,t)
+    Te = Tepsilon(t);
+    globalStress = (Te')*slocal;
+end
+
+% local stress to global strain
+function globalStrain = sL2eG(slocal,t,E1,E2,G12,v12)
+    Sb = Sbar(t,E1,E2,G12,v12);
+    globalStress = Sb*slocal;
+end
+
+% local stress to local strain
+function localStrain = sL2eL(slocal,E1,E2,G12,v12)
+    S = Slocal(E1,E2,G12,v12);
+    localStrain = Ts*slocal;
+end
+
+% local strain to global stress
+function globalStress = eL2sG(elocal,t,E1,E2,G12,v12)
+    Qb = Qbar(t,E1,E2,G12,v12);
+    globalStress = Qb*elocal;
+end
+
+% local strain to global strain
+function globalStrain = eL2eG(elocal,t)
+    Ts = Tsigma(t);
+    globalStrain = (Ts')*elocal;
+end
+
+% local strain to local stress
+function localStress = eL2sL(elocal,E1,E2,G12,v12)
+    Q = Qlocal(E1,E2,G12,v12);
+    localStress = Q*elocal;
+end
+
+% global stress to local stress
+function localStress = sG2sL(sglobal,t)
+    Ts = Tsigma(t);
+    localStress = Ts*sglobal;
+end
+
+% global stress to global strain
+function globalStrain = sG2eG(sglobal,E1,E2,G12,v12)
+    S = Sbar(t,E1,E2,G12,v12)
+
